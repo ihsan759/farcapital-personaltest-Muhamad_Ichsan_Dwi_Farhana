@@ -10,19 +10,22 @@ use Illuminate\Http\Request;
 
 class Pasien extends Controller
 {
-    public function detail($id)
-    {
-        $user = User::query()->where('id', $id)->first();
-        $pertanyaan = Pertanyaan::all();
-        return view('Pasien.show', compact('user', 'pertanyaan'));
-    }
+
 
     public function store(Request $request, $id)
     {
-        foreach ($request->pertanyaan as $jawaban) {
+        if (count($request->pertanyaan) == 1) {
+            foreach ($request->pertanyaan as $jawaban) {
+                Jawaban::create([
+                    'id_user' => $id,
+                    'id_pertanyaan' => $jawaban,
+                    'status' => 1
+                ]);
+            }
+        } else {
             Jawaban::create([
                 'id_user' => $id,
-                'id_pertanyaan' => $jawaban,
+                'id_pertanyaan' => 7,
                 'status' => 1
             ]);
         }

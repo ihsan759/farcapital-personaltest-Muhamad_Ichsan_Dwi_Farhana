@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\Petugas;
 use App\Http\Middleware\Status;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
@@ -64,6 +65,7 @@ class Kernel extends HttpKernel
         'signed' => \App\Http\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-        'status' => Status::class
+        'status' => Status::class,
+        'petugas' => Petugas::class
     ];
 }

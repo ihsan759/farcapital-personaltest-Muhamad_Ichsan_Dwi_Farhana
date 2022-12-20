@@ -12,13 +12,12 @@ class Dashboard extends Controller
 {
     function index()
     {
-        $users = User::withCount('riwayat_user', 'jawaban')->get();
+        $users = User::withCount('kondisi')->get();
         return view('Dashboard.index', compact('users'));
     }
 
     function pertanyaan()
     {
-        $pertanyaan = Riwayat::all();
-        return view('Pertanyaan.index', compact('pertanyaan'));
+        return view('Pertanyaan.index');
     }
 }

@@ -46,7 +46,7 @@
       </nav>
 
       <div class="container col-8 mx-auto my-5">
-        <form action="{{ route('pasien.store', ['id' => $user->id]) }}" method="POST">
+        <form action="{{ route('kondisi.store', ['id' => $user->id]) }}" method="POST">
             @csrf
             <div class="mb-3">
               <label for="nama" class="form-label">Nama</label>
@@ -64,15 +64,49 @@
                 <label for="alamat" class="form-label">Alamat</label>
                 <textarea class="form-control" id="alamat" rows="3" name="alamat" disabled>{{ $user->alamat }}</textarea>
             </div>
-            @foreach ($pertanyaan as $jawaban)
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="pertanyaan[]" value="{{ $jawaban->id }}" id="flexCheckDefault">
-                    <label class="form-check-label" for="flexCheckDefault">
-                        {{$jawaban->nama}}
-                    </label>
-                </div>
-            @endforeach
-
+            <div class="mb-3">
+              <label for="berat_badan" class="form-label">Berat badan</label>
+              <input type="number" class="form-control" id="berat_badan" name="berat_badan" step="0.01">
+            </div>
+            <div class="mb-3">
+              <label for="temperature" class="form-label">Temperature</label>
+              <input type="number" class="form-control" id="temperature" name="temperature" step="0.01">
+            </div>
+            <div class="mb-3">
+              <label for="sistole" class="form-label">Tekanan darah (sistole)</label>
+              <input type="number" class="form-control" id="sistole" name="sistole" step="0.01">
+            </div>
+            <div class="mb-3">
+              <label for="diastole" class="form-label">Tekanan darah (diastole)</label>
+              <input type="number" class="form-control" id="diastole" name="diastole" step="0.01">
+            </div>
+            <div class="mb-3">
+              <label for="denyut_nadi" class="form-label">Denyut nadi</label>
+              <input type="number" class="form-control" id="denyut_nadi" name="denyut_nadi">
+            </div>
+            <div class="mb-3">
+              <label for="hemoglobin" class="form-label">Hemoglobin</label>
+              <input type="number" class="form-control" id="hemoglobin" name="hemoglobin">
+            </div>
+            @if ($selisih == 17)  
+              Surat izin orang tua
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="izin" value="1" id="flexCheckDefault">
+                <label class="form-check-label" for="flexCheckDefault">
+                    Ya
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="izin" value="2" id="flexCheckDefault">
+                <label class="form-check-label" for="flexCheckDefault">
+                    Tidak
+                </label>
+              </div>
+            @elseif($selisih > 17)
+              <input type="hidden" name="izin" value="1">
+            @else
+              <input type="hidden" name="izin" value="2">
+            @endif
             <div class="d-grid">
                 <button type="submit" class="btn btn-primary">Submit</button>
             </div>

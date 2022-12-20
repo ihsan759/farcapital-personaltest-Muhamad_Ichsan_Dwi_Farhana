@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class Status
+class Petugas
 {
     /**
      * Handle an incoming request.
@@ -18,9 +18,7 @@ class Status
     public function handle(Request $request, Closure $next)
     {
         if (Auth::user()->role == 2) {
-            if (Auth::user()->status == null) {
-                return redirect()->route('pertanyaan');
-            }
+            return redirect()->route('dashboard');
         }
         return $next($request);
     }

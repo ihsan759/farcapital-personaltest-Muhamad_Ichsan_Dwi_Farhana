@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Authentikasi;
 use App\Http\Controllers\Dashboard;
+use App\Http\Controllers\KondisiController;
 use App\Http\Controllers\Pasien;
 use Illuminate\Support\Facades\Route;
 
@@ -24,11 +25,11 @@ Route::get('/register', [Authentikasi::class, 'create'])->name('register')->midd
 Route::post('/store', [Authentikasi::class, 'store'])->name('auth.store')->middleware('guest');
 
 // Dashboard
-Route::get('/dashboard', [Dashboard::class, 'index'])->name('dashboard')->middleware(['auth']);
-Route::get('/pertanyaan', [Dashboard::class, 'index'])->name('dashboard')->middleware(['auth']);
-Route::get('/pasien/{id}', [Pasien::class, 'detail'])->name('pasien.detail')->middleware(['auth']);
-Route::post('/pasien/{id}', [Pasien::class, 'store'])->name('pasien.store')->middleware(['auth']);
-Route::post('/pasien/status/{id}', [Pasien::class, 'save'])->name('pasien.status.save')->middleware(['auth']);
+Route::get('/dashboard', [Dashboard::class, 'index'])->name('dashboard')->middleware(['auth', 'status']);
+Route::get('/pertanyaan', [Dashboard::class, 'pertanyaan'])->name('dashboard')->middleware('auth');
+Route::get('/kondisi/{id}', [KondisiController::class, 'detail'])->name('kondisi.detail')->middleware(['auth', 'petugas']);
+Route::post('/kondisi/{id}', [KondisiController::class, 'store'])->name('kondisi.store')->middleware(['auth', 'petugas']);
+Route::post('/kondisi/status/{id}', [KondisiController::class, 'save'])->name('kondisi.status.save')->middleware('auth');
 
 // Pertanyaan
 Route::get('/pertanyaan', [Dashboard::class, 'pertanyaan'])->name('pertanyaan');

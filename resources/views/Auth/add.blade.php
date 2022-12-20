@@ -25,8 +25,8 @@
                     <div class="mb-3">
                         <label for="gender" class="form-label">Gender</label>
                         <select class="form-select" aria-label="Default select example" name="gender">
-                            <option value="Laki-laki">Laki-laki</option>
-                            <option value="Perempuan">Perempuan</option>
+                            <option value="1">Laki-laki</option>
+                            <option value="2">Perempuan</option>
                         </select>
                     </div>
                     <div class="mb-3">

@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\RiwayatUser;
+use App\Models\Kondisi;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -38,13 +39,24 @@ class Authentikasi extends Controller
             'alamat' => $request->post('alamat'),
             'email' => $request->post('email'),
             'password' => $request->post('password'),
-            'status' => 'Pendonor'
+            'role' => 2
         ]);
 
-        RiwayatUser::create([
-            'id_user' => $user->id,
-            'id_riwayat' => 1,
-            'status' => 1
+        $tanggalAwal = Carbon::parse($request->post('tanggal_lahir'));
+        $tanggalAkhir = Carbon::parse(now());
+
+        $selisihTahun = $tanggalAwal->diffInYears($tanggalAkhir);
+
+        $izin = 0;
+        if ($selisihTahun > 17) {
+            $izin = 1;
+        } else {
+            $izin = 0;
+        }
+
+        Kondisi::create([
+            'izin' => $izin,
+            'id_user' => $user->id
         ]);
 
         return redirect()->route('login');

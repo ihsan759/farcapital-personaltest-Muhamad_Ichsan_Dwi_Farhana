@@ -25,7 +25,8 @@ class User extends Authenticatable
         'alamat',
         'email',
         'password',
-        'status'
+        'status',
+        'role'
     ];
 
     /**
@@ -53,13 +54,8 @@ class User extends Authenticatable
         });
     }
 
-    public function riwayat_user()
+    public function kondisi()
     {
-        return $this->hasMany(RiwayatUser::class, 'id_user');
-    }
-
-    public function jawaban()
-    {
-        return $this->hasMany(Jawaban::class, 'id_user');
+        return $this->hasOne(Kondisi::class, 'id_user');
     }
 }

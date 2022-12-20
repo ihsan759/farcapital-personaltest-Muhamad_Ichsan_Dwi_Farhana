@@ -55,31 +55,32 @@
             </thead>
             <tbody>
                 @foreach ($users as $data)
-                    @if ($data->status == 'Pendonor')     
+                    @if ($data->role == 2)     
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $data->nama }}</td>
-                            <td>@switch($data->riwayat_user_count)
-                                @case(3)
+                            <td>
+                                @switch($data->status)
+                                  @case(null)
                                     Belum mengisi daftar riwayat
                                     @break
-                                @case(1)
-                                    @if ($data->jawaban_count == 6)
-                                        Lolos donor darah
-                                    @elseif($data->jawaban_count == 0)
-                                        Layak donor darah
-                                    @else
-                                        Tidak Lolos donor darah
-                                    @endif
-                                    @break
-                                @case(2)
+                                  @case(1)
                                     Tidak layak donor darah
                                     @break
-                            @endswitch
+                                  @case(2)
+                                    Layak donor darah
+                                    @break
+                                  @case(3)
+                                    Lolos donor darah
+                                    @break
+                                  @default
+                                    Tidak lolos donor darah
+                                    @break    
+                                @endswitch
                             </td>
                             <td>
-                                @if (Auth::user()->status == 'Petugas')
-                                    <a href="{{ route('pasien.detail', ['id' => $data->id]) }}" class="btn btn-warning">Detail</a>
+                                @if (Auth::user()->role == 1)
+                                    <a href="{{ route('kondisi.detail', ['id' => $data->id]) }}" class="btn btn-warning">Detail</a>
                                 @endif
                             </td>
                         </tr>
